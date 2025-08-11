@@ -1,0 +1,79 @@
+/* Container to center form */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+/* Card box */
+.login-box {
+  background: oklch(87.2% 0.01 258.338);
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.993);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Title */
+.login-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: oklch(14.7% 0.004 49.25);
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs */
+.login-form input {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid oklch(14.7% 0.004 49.25);
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-form input:focus {
+  border-color: oklch(62.7% 0.265 303.9);
+  box-shadow: 0 0 6px oklch(62.7% 0.265 303.9);
+  outline: none;
+}
+
+/* Button */
+.login-form button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background: linear-gradient(45deg, oklch(87.2% 0.01 258.338));
+  color: oklch(14.7% 0.004 49.25);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, background 0.3s ease-in-out;
+}
+
+.login-form button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(45deg, oklch(55.1% 0.027 264.364));
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

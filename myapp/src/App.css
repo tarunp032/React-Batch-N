@@ -1,0 +1,11 @@
+.nav-link {
+  text-decoration: none;
+  color: oklch(44.2% 0.017 285.786);  
+  margin: 0;
+  padding: 0;     
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  color: oklch(20.5% 0 0);  
+}

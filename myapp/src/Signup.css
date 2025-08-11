@@ -1,0 +1,97 @@
+/* Container to center form */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+/* Card box */
+.signup-box {
+  background: oklch(87.2% 0.01 258.338);
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.993);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Title */
+.signup-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: oklch(14.7% 0.004 49.25);
+}
+
+/* Form */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs */
+.signup-form input {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid oklch(14.7% 0.004 49.25);
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+.signup-form input:focus {
+  border-color: oklch(62.7% 0.265 303.9);
+  box-shadow: 0 0 6px oklch(62.7% 0.265 303.9);
+  outline: none;
+}
+
+/* Button */
+.signup-form button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background: linear-gradient(45deg, oklch(87.2% 0.01 258.338));
+  color: oklch(14.7% 0.004 49.25);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, background 0.3s ease-in-out;
+}
+
+.signup-form button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(45deg, oklch(55.1% 0.027 264.364));
+}
+
+/* Login text */
+.login-text {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.login-text a {
+  color: oklch(60.6% 0.25 292.717);
+  font-weight: 800;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
