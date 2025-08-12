@@ -32,7 +32,7 @@ export default function Navbar({ cartCount }) {
   return (
     <header className={`navbar ${visible ? "" : "hidden"}`}>
       <div className="nav-left">
-        <Link to="/" className="nav-logo">My Shop</Link>
+        <Link to="/" className="nav-logo">ShopEasy</Link>
       </div>
 
       <nav className="nav-center" aria-label="categories">
