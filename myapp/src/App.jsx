@@ -13,6 +13,7 @@ import Counter from './Counter'
 import Signup from './SignUp'
 import Login from './Login'
 import Fetch from './Fetch'
+import ProtectedRoute from './ProtectedRoute'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,7 +24,13 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/about_react' element={<About/>}/>
-        <Route path='/contact_us' element={<Contact/>}/>
+
+        <Route path='/contact_us' element={
+          <ProtectedRoute>
+            <Contact/>
+          </ProtectedRoute>
+        }/>
+
         <Route path='/counter' element={<Counter/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/login' element={<Login/>}/>

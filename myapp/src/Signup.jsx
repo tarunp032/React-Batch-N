@@ -25,7 +25,7 @@ const Signup = () => {
 
     const result = { name, email, phone, password };
     console.log(`>>>>>>result`, result);
-    // localStorage.setItem("user", JSON.stringify(result));
+    localStorage.setItem("user", JSON.stringify(result));
     setName("");
     setEmail("");
     setPhone("");
