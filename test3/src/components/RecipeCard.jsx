@@ -7,6 +7,7 @@ export default function RecipeCard({ recipe }) {
 
   const handleAddToCart = () => {
     if (!user) {
+      alert("Please login first!");
       navigate("/login");
     } else {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -20,7 +21,8 @@ export default function RecipeCard({ recipe }) {
     <div style={{ border: "1px solid #ccc", padding: "10px", margin: "10px" }}>
       <h3>{recipe.name}</h3>
       <img src={recipe.image} alt={recipe.name} width="200" />
-      <p>{recipe.cuisine}</p>
+      <p>Cuisine: {recipe.cuisine}</p>
+      <p>Meal Type: {recipe.mealType.join(", ")}</p>
       <button onClick={handleAddToCart}>Add to Cart</button>
     </div>
   );

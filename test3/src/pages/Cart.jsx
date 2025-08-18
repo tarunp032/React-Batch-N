@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 export default function Cart() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const [cart, setCart] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user")); 
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(storedCart);
+  }, []);
+
+  const handleRemove = (index) => {
+    const updatedCart = cart.filter((_, i) => i !== index);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h2>Your Cart</h2>
       {cart.length === 0 ? (
         <p>No items in cart</p>
@@ -15,11 +32,13 @@ export default function Cart() {
             style={{
               border: "1px solid #ccc",
               padding: "10px",
-              margin: "10px",
+              margin: "10px 0",
             }}
           >
             <h3>{item.name}</h3>
             <img src={item.image} alt={item.name} width="200" />
+            <p>{item.cuisine}</p>
+            <button onClick={() => handleRemove(idx)}>Remove</button>
           </div>
         ))
       )}
