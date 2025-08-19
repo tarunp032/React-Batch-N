@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
+import "./App.css";
 
 export default function App() {
   return (

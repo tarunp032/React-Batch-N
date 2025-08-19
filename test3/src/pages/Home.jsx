@@ -11,7 +11,7 @@ export default function Home() {
   const [sortType, setSortType] = useState("");
   const [selectedMealType, setSelectedMealType] = useState("");
 
-  // Fetch data from API
+  // Fetch recipes and extract mealTypes
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")
       .then((res) => res.json())
@@ -19,7 +19,6 @@ export default function Home() {
         setRecipes(data.recipes);
         setFilteredRecipes(data.recipes);
 
-        // extract mealTypes
         const allMealTypes = new Set();
         data.recipes.forEach((r) =>
           r.mealType.forEach((m) => allMealTypes.add(m))
@@ -28,14 +27,12 @@ export default function Home() {
       });
   }, []);
 
-  // Filter + Search + Sort
+  // Apply filters when search, sort, or mealType changes
   useEffect(() => {
     let filtered = [...recipes];
 
     if (selectedMealType) {
-      filtered = filtered.filter((r) =>
-        r.mealType.includes(selectedMealType)
-      );
+      filtered = filtered.filter((r) => r.mealType.includes(selectedMealType));
     }
 
     if (searchTerm) {
@@ -57,33 +54,27 @@ export default function Home() {
     <div style={{ padding: "20px" }}>
       <h2>Recipes</h2>
 
+      {/* Search and Sort */}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <SortDropdown sortType={sortType} setSortType={setSortType} />
 
+      {/* MealType Dropdown */}
       <div style={{ margin: "10px 0" }}>
-        <strong>Filter by Meal Type: </strong>
-        {mealTypes.map((type) => (
-          <button
-            key={type}
-            onClick={() => setSelectedMealType(type)}
-            style={{
-              margin: "5px",
-              padding: "5px 10px",
-              background: selectedMealType === type ? "#ddd" : "#eee",
-              border: "1px solid #ccc",
-            }}
-          >
-            {type}
-          </button>
-        ))}
-        <button
-          onClick={() => setSelectedMealType("")}
-          style={{ margin: "5px", padding: "5px 10px", background: "#eee" }}
+        <strong>Meal Type: </strong>
+        <select
+          value={selectedMealType}
+          onChange={(e) => setSelectedMealType(e.target.value)}
         >
-          All
-        </button>
+          <option value="">All</option>
+          {mealTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
       </div>
 
+      {/* Recipe List */}
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {filteredRecipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
