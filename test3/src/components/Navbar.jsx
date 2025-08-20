@@ -11,19 +11,33 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{ padding: "10px", background: "#eee" }}>
-      <Link to="/">Home</Link> | <Link to="/about">About</Link> |{" "}
-      <Link to="/cart">Cart</Link> |{" "}
-      {user ? (
-        <>
-          <span>Welcome, {user.name}</span> |{" "}
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <Link to="/login">Login</Link> | <Link to="/signup">Signup</Link>
-        </>
-      )}
+    <nav className="navbar">
+      <div className="nav-left">
+        <div className="nav-brand">
+          <Link to="/" className="brand-name">FoodCart</Link>
+          <span className="tagline">Always Ready, Always Fresh</span>
+        </div>
+
+        <div className="nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/cart">Cart</Link>
+        </div>
+      </div>
+
+      <div className="nav-right">
+        {user ? (
+          <>
+            <span className="welcome">Hi, {user.name}</span>
+            <button className="logout-btn" onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 }

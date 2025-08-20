@@ -11,7 +11,6 @@ export default function Home() {
   const [sortType, setSortType] = useState("");
   const [selectedMealType, setSelectedMealType] = useState("");
 
-  // Fetch recipes and extract mealTypes
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")
       .then((res) => res.json())
@@ -27,7 +26,6 @@ export default function Home() {
       });
   }, []);
 
-  // Apply filters when search, sort, or mealType changes
   useEffect(() => {
     let filtered = [...recipes];
 
@@ -54,28 +52,29 @@ export default function Home() {
     <div style={{ padding: "20px" }}>
       <h2>Recipes</h2>
 
-      {/* Search and Sort */}
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <SortDropdown sortType={sortType} setSortType={setSortType} />
+      {/* Filter Bar */}
+      <div className="filter-bar">
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {/* MealType Dropdown */}
-      <div style={{ margin: "10px 0" }}>
-        <strong>Meal Type: </strong>
-        <select
-          value={selectedMealType}
-          onChange={(e) => setSelectedMealType(e.target.value)}
-        >
-          <option value="">All</option>
-          {mealTypes.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+        <SortDropdown sortType={sortType} setSortType={setSortType} />
+
+        <div className="meal-dropdown">
+          <select
+            value={selectedMealType}
+            onChange={(e) => setSelectedMealType(e.target.value)}
+          >
+            <option value="">All Meal Types</option>
+            {mealTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      {/* Recipe List */}
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      {/* Recipe Cards */}
+      <div className="recipes-grid">
         {filteredRecipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}

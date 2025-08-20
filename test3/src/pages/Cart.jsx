@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
@@ -35,8 +35,12 @@ export default function Cart() {
               margin: "10px 0",
             }}
           >
-            <h3>{item.name}</h3>
-            <img src={item.image} alt={item.name} width="200" />
+            {/* Image + Name clickable */}
+            <Link to={`/recipe/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <h3>{item.name}</h3>
+              <img src={item.image} alt={item.name} width="200" />
+            </Link>
+
             <p>{item.cuisine}</p>
             <button onClick={() => handleRemove(idx)}>Remove</button>
           </div>

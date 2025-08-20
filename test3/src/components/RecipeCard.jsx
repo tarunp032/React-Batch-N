@@ -1,7 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function RecipeCard({ recipe }) {
-  const addToCart = () => {
+  const navigate = useNavigate();
+
+  const addToCart = (e) => {
+    e.stopPropagation();
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
       alert("Please login to add items to cart!");
@@ -15,12 +19,22 @@ export default function RecipeCard({ recipe }) {
   };
 
   return (
-    <div className="recipe-card">
+    <div
+      className="recipe-card"
+      onClick={() => navigate(`/recipe/${recipe.id}`)} 
+    >
       <img src={recipe.image} alt={recipe.name} />
+
       <h3>{recipe.name}</h3>
-      <p>Cuisine: {recipe.cuisine}</p>
-      <p>Meal Type: {recipe.mealType.join(", ")}</p>
-      <button onClick={addToCart}>Add to Cart</button>
+      <p><strong>Cuisine:</strong> {recipe.cuisine || "N/A"}</p>
+      <p>
+        <strong>Meal Type:</strong>{" "}
+        {recipe.mealType?.length ? recipe.mealType.join(", ") : "N/A"}
+      </p>
+      <p><strong>Rating:</strong> ⭐ {recipe.rating ?? "?"} / 5</p>
+      <p><strong>Reviews:</strong> {recipe.reviewCount ?? 0}</p>
+
+      <button className="add-btn" onClick={addToCart}>Add to Cart</button>
     </div>
   );
 }
