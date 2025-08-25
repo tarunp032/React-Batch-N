@@ -349,3 +349,30 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Table View */
+.recipe-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: oklch(98% 0.016 73.684);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.recipe-table th, .recipe-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.recipe-table th {
+  background: #f39c12;
+  color: white;
+  font-size: 15px;
+}
+
+.recipe-table tr:hover {
+  background: #fdf5e6;
+}

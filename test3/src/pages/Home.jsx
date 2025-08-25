@@ -11,6 +11,17 @@ export default function Home() {
   const [sortType, setSortType] = useState("");
   const [selectedMealType, setSelectedMealType] = useState("");
 
+  // Local storage se get (default card)
+  const [viewMode, setViewMode] = useState(() => {
+    return localStorage.getItem("viewMode") || "card";
+  });
+
+  // Local storage me set
+  useEffect(() => {
+    localStorage.setItem("viewMode", viewMode);
+  }, [viewMode]);
+
+  // Data fetch
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")
       .then((res) => res.json())
@@ -52,33 +63,72 @@ export default function Home() {
     <div style={{ padding: "20px" }}>
       <h2>Recipes</h2>
 
-      {/* Filter Bar */}
       <div className="filter-bar">
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-
         <SortDropdown sortType={sortType} setSortType={setSortType} />
+        <select
+          value={selectedMealType}
+          onChange={(e) => setSelectedMealType(e.target.value)}
+        >
+          <option value="">All</option>
+          {mealTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
 
-        <div className="meal-dropdown">
-          <select
-            value={selectedMealType}
-            onChange={(e) => setSelectedMealType(e.target.value)}
+        <div style={{ marginLeft: "auto" }}>
+          <button
+            onClick={() => setViewMode(viewMode === "card" ? "table" : "card")}
+            className="btn-active"
           >
-            <option value="">All Meal Types</option>
-            {mealTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+            {viewMode === "card" ? "Table" : "Cards"}
+          </button>
         </div>
       </div>
 
-      {/* Recipe Cards */}
-      <div className="recipes-grid">
-        {filteredRecipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
+      {viewMode === "card" ? (
+        <div className="recipes-grid">
+          {filteredRecipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
+        </div>
+      ) : (
+        <div style={{ overflowX: "auto", marginTop: 20 }}>
+          <table
+            className="recipe-table"
+            style={{ width: "100%", borderCollapse: "collapse" }}
+          >
+            <thead>
+              <tr>
+                <th style={{ textAlign: "left", padding: "10px" }}>#</th>
+                <th style={{ textAlign: "left", padding: "10px" }}>Name</th>
+                <th style={{ textAlign: "left", padding: "10px" }}>Cuisine</th>
+                <th style={{ textAlign: "left", padding: "10px" }}>
+                  Meal Type
+                </th>
+                <th style={{ textAlign: "left", padding: "10px" }}>Rating</th>
+                <th style={{ textAlign: "left", padding: "10px" }}>Reviews</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredRecipes.map((r, i) => (
+                <tr key={r.id} style={{ borderTop: "1px solid #eee" }}>
+                  <td style={{ padding: "10px" }}>{i + 1}</td>
+                  <td style={{ padding: "10px" }}>{r.name}</td>
+                  <td style={{ padding: "10px" }}>{r.cuisine}</td>
+                  <td style={{ padding: "10px" }}>
+                    {r.mealType?.join(", ")}
+                  </td>
+                  <td style={{ padding: "10px" }}>⭐ {r.rating}</td>
+                  <td style={{ padding: "10px" }}>{r.reviewCount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
