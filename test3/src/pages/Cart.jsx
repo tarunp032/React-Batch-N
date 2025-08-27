@@ -35,7 +35,7 @@ export default function Cart() {
               margin: "10px 0",
             }}
           >
-            {/* Image + Name clickable */}
+          
             <Link to={`/recipe/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
               <h3>{item.name}</h3>
               <img src={item.image} alt={item.name} width="200" />

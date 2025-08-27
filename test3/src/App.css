@@ -15,7 +15,7 @@ body {
 /* Navbar */
 nav {
   background: linear-gradient(90deg, oklch(37% 0.013 285.805));
-  padding: 15px 30px;
+  padding: 5px 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -193,6 +193,7 @@ h2 {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
   transition: transform 0.3s ease, background 0.3s;
+  margin-top: auto;
 }
 
 .recipe-card button:hover {
