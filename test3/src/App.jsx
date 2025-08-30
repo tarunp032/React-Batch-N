@@ -12,7 +12,7 @@ import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
 import RecipeDetail from "./pages/RecipeDetail"; 
 import "./App.css";
-
+import ACounter from "./pages/ACounter"
 export default function App() {
   return (
     <Router>
@@ -23,6 +23,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/ACounter" element={<ACounter/>}/>
         <Route path="/recipe/:id" element={<RecipeDetail />} />
       </Routes>
     </Router>

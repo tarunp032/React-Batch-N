@@ -22,6 +22,7 @@ export default function Navbar() {
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/cart">Cart</Link>
+          <Link to="/ACounter">ACounter</Link>
         </div>
       </div>
 
