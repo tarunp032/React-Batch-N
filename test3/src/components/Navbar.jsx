@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -14,15 +14,40 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="nav-left">
         <div className="nav-brand">
-          <Link to="/" className="brand-name">FoodCart</Link>
+          <NavLink to="/" className="brand-name">
+            FoodCart
+          </NavLink>
           <span className="tagline">Always Ready, Always Fresh</span>
         </div>
 
         <div className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/ACounter">ACounter</Link>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/about"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            About
+          </NavLink>
+
+          <NavLink
+            to="/cart"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Cart
+          </NavLink>
+
+          <NavLink
+            to="/ACounter"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            ACounter
+          </NavLink>
         </div>
       </div>
 
@@ -30,12 +55,24 @@ export default function Navbar() {
         {user ? (
           <>
             <span className="welcome">Hi, {user.name}</span>
-            <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
+            <NavLink
+              to="/login"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to="/signup"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Signup
+            </NavLink>
           </>
         )}
       </div>
