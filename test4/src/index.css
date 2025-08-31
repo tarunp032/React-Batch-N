@@ -1,0 +1,9 @@
+body {
+  background-color: oklch(98.4% 0.014 180.72);
+  color: black;
+  transition: all 0.3s ease-in-out;
+}
+body.dark{
+  background-color: #121212;
+  color: white;
+}
