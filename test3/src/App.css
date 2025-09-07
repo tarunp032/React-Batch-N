@@ -12,6 +12,7 @@ body {
   background: oklch(95.4% 0.038 75.164);
   color: #2c3e50;
   min-height: 100vh;
+  padding-top: 70px; /* Navbar ke neeche content overlap na ho */
 }
 
 /* Section Headings */
@@ -27,19 +28,34 @@ h2 {
 /* =============================
    🔹 Navbar
    ============================= */
-nav {
+.navbar {
   background: linear-gradient(90deg, oklch(37% 0.013 285.805));
   padding: 5px 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.navbar.show {
+  transform: translateY(0);
+}
+
+.navbar.hide {
+  transform: translateY(-100%);
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 40px; 
+  gap: 40px;
 }
 
 .nav-brand {
@@ -169,7 +185,7 @@ nav {
 
 .recipe-card h3 {
   font-size: 22px;
-  margin: 12px 0 10px; 
+  margin: 12px 0 10px;
   font-weight: 700;
   color: #2c3e50;
   line-height: 1.3;
@@ -275,7 +291,7 @@ nav {
   border-radius: 15px;
   object-fit: cover;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform 0.4s ease; 
+  transition: transform 0.4s ease;
 }
 
 .recipe-detail img:hover {
@@ -310,7 +326,7 @@ nav {
 
 .rating .star {
   font-size: 18px;
-  color: #ccc; /* empty star */
+  color: #ccc;
 }
 
 .rating .star.filled {
@@ -363,13 +379,13 @@ nav {
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 18px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cart-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .cart-item img {
@@ -402,7 +418,6 @@ nav {
   gap: 12px;
 }
 
-/* ✅ Rounded + Hover Effect */
 .quantity-controls button {
   background: linear-gradient(135deg, #f39c12, #e67e22);
   color: white;
@@ -436,7 +451,11 @@ nav {
 .cart-summary {
   margin-top: 25px;
   padding: 20px;
-  background: linear-gradient(135deg, oklch(98% 0.016 73.684));
+  background: linear-gradient(
+    135deg,
+    oklch(98% 0.016 73.684),
+    oklch(95.4% 0.038 75.164)
+  );
   border-radius: 14px;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.4s ease-in-out;
@@ -637,39 +656,239 @@ nav {
 .about-features li {
   font-size: 16px;
   color: #444;
-  margin: 6px 0;
+  margin-bottom: 12px;
+  padding-left: 22px;
+  position: relative;
 }
 
-.about-future {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 25px;
+.about-features li::before {
+  content: "✔";
+  color: #27ae60;
+  position: absolute;
+  left: 0;
 }
 
 .about-footer {
-  margin-top: 30px;
-  padding-top: 15px;
-  border-top: 1px solid #ddd;
+  font-size: 15px;
+  color: #777;
   text-align: center;
-  font-size: 14px;
-  color: #666;
+  margin-top: 25px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
 }
 
-/* =============================
-   🔹 Responsive
-   ============================= */
-@media (max-width: 1100px) {
-  .recipes-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+
+/* ============================= */
+/* 🔹 Dark Mode Styles */
+/* ============================= */
+
+body.dark-mode {
+  background: #121212; 
+  color: #f1f1f1; 
+  transition: background 0.3s ease, color 0.3s ease;
 }
-@media (max-width: 800px) {
-  .recipes-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
+body.dark-mode h2,
+body.dark-mode .about-title,
+body.dark-mode .about-subtitle,
+body.dark-mode .cart-summary h3,
+body.dark-mode .recipe-info h2,
+body.dark-mode .recipe-sections h3,
+body.dark-mode .cart-item-info h3 {
+  color: #ffffff;
 }
-@media (max-width: 500px) {
-  .recipes-grid {
-    grid-template-columns: 1fr;
-  }
+
+body.dark-mode .navbar {
+  background: linear-gradient(90deg, #1c1c1c, #2a2a2a);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
+
+body.dark-mode .nav-links a,
+body.dark-mode .nav-right a,
+body.dark-mode .nav-brand .tagline {
+  color: #bdc3c7;
+}
+
+body.dark-mode .nav-links a.active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .nav-links a:hover,
+body.dark-mode .nav-right a:hover {
+  color: #f39c12;
+}
+
+body.dark-mode .logout-btn {
+  background: #c0392b;
+}
+
+body.dark-mode .logout-btn:hover {
+  background: #e74c3c;
+}
+
+body.dark-mode .filter-bar {
+  background: #1e1e1e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .filter-bar input,
+body.dark-mode .filter-bar select {
+  background: #2c2c2c;
+  color: #f1f1f1;
+  border: 1px solid #555;
+}
+
+body.dark-mode .filter-bar input:focus,
+body.dark-mode .filter-bar select:hover {
+  border-color: #f39c12;
+}
+
+body.dark-mode .recipes-grid {
+  gap: 20px;
+}
+
+body.dark-mode .recipe-card {
+  background: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .recipe-card h3,
+body.dark-mode .recipe-card p {
+  color: #f1f1f1;
+}
+
+body.dark-mode .recipe-card .card-content {
+  flex-grow: 1;
+  padding: 15px;
+}
+
+body.dark-mode .recipe-card .card-footer {
+  background: #121212; 
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+}
+
+body.dark-mode .recipe-card {
+  background: oklch(33.949% 0.00449 248.159);
+  box-shadow: 0 4px 
+}
+
+body.dark-mode .recipe-card button {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+body.dark-mode .recipe-card button:hover {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+body.dark-mode .recipe-table {
+  background: #1e1e1e;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+body.dark-mode .recipe-table th,
+body.dark-mode .recipe-table td {
+  color: #f1f1f1;
+  border-top: 1px solid #555;
+  padding: 10px;
+}
+
+body.dark-mode .cart-container,
+body.dark-mode .cart-item,
+body.dark-mode .cart-summary {
+  background: #1e1e1e;
+  color: #f1f1f1;
+}
+
+body.dark-mode .cart-summary {
+  background: linear-gradient(135deg, #5f5858, #121212);
+}
+
+body.dark-mode .cart-summary p,
+body.dark-mode .cart-summary li {
+  color: #000000;
+}
+
+body.dark-mode .auth-container {
+  background: #1e1e1e;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .auth-container h2,
+body.dark-mode .auth-container p {
+  color: #f1f1f1;
+}
+
+body.dark-mode .auth-container input {
+  background: #2c2c2c;
+  color: #f1f1f1;
+  border: 1px solid #555;
+}
+
+body.dark-mode .auth-container input:focus {
+  border-color: #f39c12;
+  box-shadow: 0 0 8px rgba(243, 156, 18, 0.3);
+}
+
+body.dark-mode .auth-container button {
+  background: #f39c12;
+  color: #fff;
+}
+
+body.dark-mode .auth-container button:hover {
+  background: #e67e22;
+}
+
+body.dark-mode .about-container {
+  background: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .about-tagline {
+  color: #f39c12;
+}
+
+body.dark-mode .about-description,
+body.dark-mode .about-features li,
+body.dark-mode .about-footer {
+  color: #f1f1f1;
+}
+
+body.dark-mode .about-features li::before {
+  color: #f39c12;
+}
+
+/* Smooth transitions for all elements */
+body,
+.navbar,
+.recipe-card,
+.filter-bar,
+.recipe-table,
+.recipe-detail,
+.cart-container,
+.cart-item,
+.cart-summary,
+.auth-container,
+.about-container {
+  transition: all 0.3s ease-in-out;
+}
+body.dark-mode .recipe-card h3,
+body.dark-mode .recipe-card p {
+  color: #f1f1f1; 
+}
+
+body.dark-mode .recipe-card p span.label {
+  color: #000000; 
+  font-weight: 600;
+}
+

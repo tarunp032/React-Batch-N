@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux"; // ✅ Import useDispatch
+import { setUser } from "../slice/userSlice"; // ✅ Import setUser
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // ✅ Initialize dispatch
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -15,7 +18,12 @@ export default function Login() {
     );
 
     if (user) {
+      // ✅ Save user in Redux state
+      dispatch(setUser(user));
+
+      // ✅ Save user in localStorage for persistence
       localStorage.setItem("user", JSON.stringify(user));
+
       alert("Login successful!");
       navigate("/");
     } else {

@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const About = () => {
-  const count = useSelector((state) => state.counter.value);
 
   return (
     <div className="about-container">
@@ -32,9 +31,6 @@ const About = () => {
 
       <div className="about-footer">
         <p>Built with ❤️ using React & DummyJSON API</p>
-        <p>
-          Counter Example Value (Redux State): <strong>{count}</strong>
-        </p>
       </div>
     </div>
   );

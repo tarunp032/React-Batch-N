@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux"; // ✅ Import useDispatch
+import { setUser } from "../slice/userSlice"; // ✅ Import setUser
 
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // ✅ Initialize dispatch
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -21,8 +24,12 @@ export default function Signup() {
     const newUser = { name, email, password };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
-    alert("Signup successful! Please login.");
-    navigate("/login");
+
+    // ✅ Dispatch setUser to save user state
+    dispatch(setUser(newUser));
+
+    alert("Signup successful!");
+    navigate("/");
   };
 
   return (

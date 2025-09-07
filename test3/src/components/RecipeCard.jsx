@@ -61,13 +61,19 @@ export default function RecipeCard({ recipe }) {
     >
       <img src={recipe.image} alt={recipe.name} />
       <h3>{recipe.name}</h3>
-      <p><strong>Cuisine:</strong> {recipe.cuisine || "N/A"}</p>
       <p>
-        <strong>Meal Type:</strong>{" "}
+        <span className="label">Cuisine:</span> {recipe.cuisine || "N/A"}
+      </p>
+      <p>
+        <span className="label">Meal Type:</span>{" "}
         {recipe.mealType?.length ? recipe.mealType.join(", ") : "N/A"}
       </p>
-      <p><strong>Rating:</strong> ⭐ {recipe.rating ?? "?"} / 5</p>
-      <p><strong>Reviews:</strong> {recipe.reviewCount ?? 0}</p>
+      <p>
+        <span className="label">Rating:</span> ⭐ {recipe.rating ?? "?"} / 5
+      </p>
+      <p>
+        <span className="label">Reviews:</span> {recipe.reviewCount ?? 0}
+      </p>
 
       {quantity === 0 ? (
         <button className="add-btn" onClick={handleAddToCart}>

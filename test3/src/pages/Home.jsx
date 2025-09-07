@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchRecipes } from "../slice/recipeSlice";
+import { setRecipes } from "../slice/recipeSlice";
 import RecipeCard from "../components/RecipeCard";
 import SearchBar from "../components/SearchBar";
 import SortDropdown from "../components/SortDropdown";
+import useViewMode from "../hooks/useViewMode";
+import useDarkMode from "../hooks/useDarkMode"; 
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { items: recipes, status } = useSelector((state) => state.recipes);
+  const recipes = useSelector((state) => state.recipes.items);
 
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [mealTypes, setMealTypes] = useState([]);
@@ -15,44 +17,35 @@ export default function Home() {
   const [sortType, setSortType] = useState("");
   const [selectedMealType, setSelectedMealType] = useState("");
 
-  // Local storage se get (default card)
-  const [viewMode, setViewMode] = useState(() => {
-    return localStorage.getItem("viewMode") || "card";
-  });
+  const { viewMode, toggleViewMode } = useViewMode();
+  const { darkMode, toggleDarkMode } = useDarkMode(); 
 
-  // Local storage me set
   useEffect(() => {
-    localStorage.setItem("viewMode", viewMode);
-  }, [viewMode]);
-
-  // Redux se fetch only once
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchRecipes());
+    if (recipes.length === 0) {
+      fetch("https://dummyjson.com/recipes")
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch(setRecipes(data.recipes));
+        });
     }
-  }, [status, dispatch]);
+  }, [recipes, dispatch]);
 
-  // Meal types set + filter apply
   useEffect(() => {
     if (recipes.length > 0) {
       let filtered = [...recipes];
-
       if (selectedMealType) {
         filtered = filtered.filter((r) => r.mealType.includes(selectedMealType));
       }
-
       if (searchTerm) {
         filtered = filtered.filter((r) =>
           r.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
       }
-
       if (sortType === "name-asc") {
         filtered.sort((a, b) => a.name.localeCompare(b.name));
       } else if (sortType === "name-desc") {
         filtered.sort((a, b) => b.name.localeCompare(a.name));
       }
-
       setFilteredRecipes(filtered);
 
       const allMealTypes = new Set();
@@ -60,9 +53,6 @@ export default function Home() {
       setMealTypes([...allMealTypes]);
     }
   }, [recipes, searchTerm, sortType, selectedMealType]);
-
-  if (status === "loading") return <p>Loading recipes...</p>;
-  if (status === "failed") return <p>Error fetching recipes.</p>;
 
   return (
     <div style={{ padding: "20px" }}>
@@ -82,15 +72,14 @@ export default function Home() {
             </option>
           ))}
         </select>
+        
+        <button onClick={toggleViewMode} className="btn-active">
+          {viewMode === "card" ? "Table" : "Cards"}
+        </button>
 
-        <div style={{ marginLeft: "auto" }}>
-          <button
-            onClick={() => setViewMode(viewMode === "card" ? "table" : "card")}
-            className="btn-active"
-          >
-            {viewMode === "card" ? "Table" : "Cards"}
-          </button>
-        </div>
+        <button onClick={toggleDarkMode} className="btn-active" style={{ marginLeft: "10px" }}>
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
       </div>
 
       {viewMode === "card" ? (
