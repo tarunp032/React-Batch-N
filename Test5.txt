@@ -1,0 +1,114 @@
+1. What is Redux Toolkit?
+
+Ans:- Redux Toolkit is a tool that helps in writing Redux in an easy and faster way. It reduces extra code from other components.
+
+The main parts of Redux Toolkit are :- a). Store   b). Slice  c). configureStore()
+
+How it works:- 
+a). First, you create a slice using createSlice()
+b). Then, you create the store using configureStore()
+c). You use the Provider to make the store available to the entire app.
+d). Inside the components, you use useSelector() to access the state and useDispatch() to send.
+
+Why Redux Toolkit is useful :- 
+
+a). It reduces the amount of code.
+b). It makes it easier to manage state in larger apps.
+c). It have its own inbuild Middleware.
+d). It work on React as well as Next.
+
+
+1). Slice :- A slice is a part of the Redux state. It helps you create:
+  -> Initial state
+  -> Reducers - functions that change the state
+  -> Actions - describe what happened ?
+
+- With Redux Toolkit, we use the function createSlice() to make all together.
+
+2). Store :- The store is where all the state is kept. It is like a bowl or a container that holds the all data of app. 
+         - You create the store by using the configureStore() function from Redux Toolkit.
+         - Combine all slices in one place when you create the store.
+ 
+3). Provider :- The Provider is a component that gives access to the store to all parts of the app.
+         - You wrap your app with the Provider component and pass the store as prop. By this, every component can access by the store.
+
+    Functions :- --> It gives access to the store for all parts of the app. 
+                 --> It allows components deep in the app to access the state without passing props manually.
+                 --> It makes the store available to every component using hooks. (Which is written below)
+
+4). useSelectore :- useSelector() is a hook used to read data from the store. (Take data from Store, and give to components)
+         - You pass a function that tells it which part of the state you want to use.
+
+    Functions :- --> It reads data from the store.
+                 --> It selects a specific part state that a component need.
+                 --> It updates the component whenever any changes occur in part of state.
+
+5). useDispatch :- useDispatch() is a hook to send actions to the store. (Its send the data to store from components)
+        - We use useDispatch to call actions that change the state.
+
+   Functions :- --> It sends actions to the store to change the state.
+                --> It allows us to call functions like increment/decrement and other functions also when a button is clicked.
+                --> It helps to update the state based on user interaction.
+
+
+How these all 5 works together ?
+--> 1). Slice defines the state and how it can be changed.
+    2). Store holds the state and makes it available to the app.
+    3). Provider gives access to the store of al components.
+    4). useSelector() reads data from the store.
+    5). useDispatch() sends actions to update the state.
+
+
+
+2. What is use-Effect ? 
+
+Ans:- useEffect is a function in React that helps you do things that are outside the normal way of showing the page.
+     - It call API again & again. (without dependencies)
+     - It call API only on render & refresh. (Empty dependencies)
+     - When ever any change occur in state & props it will call API. (state & props dependencies)
+
+Syntax :- 
+
+     useEffect ( () => {
+        
+     // code you want to run  
+
+       return () => {
+
+      };
+     }, [dependencies]);
+
+
+
+--> It has 3 methos :- 
+
+1). without dependencies -
+
+    useEffect ( () => {
+
+
+    },)
+
+2). Empty dependencies -
+
+    useEffect ( () => {
+
+
+    }, [])
+
+3). state, props dependencies -
+
+    useEffect ( () => {
+
+
+    }, [state, props])
+
+
+Functions :- --> It can run when certain things are changed.
+             --> It helps to manage things like API calls.
+             --> It run some code after the component is displayed.
+
+How to use useEffect in real cases:- 
+
+1). Data Fetching
+2). DOM manipulation 
