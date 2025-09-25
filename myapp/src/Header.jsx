@@ -8,6 +8,7 @@ const Header = () => {
       <Link to={"/about_react"} className="nav-link">About</Link>
       <Link to={"/contact_us"} className="nav-link">Contact</Link>
       <Link to={"/counter"} className="nav-link">Counter</Link>
+      <Link to={"/product"} className="nav-link">Products</Link>
       <Link to={"/signup"} className="nav-link">Signup</Link>
       <Link to={"/login"} className="nav-link">Login</Link>
       <Link to={"/fetchdata"} className="nav-link">ApiData</Link>
